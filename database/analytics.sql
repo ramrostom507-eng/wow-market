@@ -23,7 +23,7 @@ drop policy if exists "analytics insert events" on public.site_analytics_events;
 create policy "analytics insert events" on public.site_analytics_events
 for insert to anon, authenticated
 with check (
-  event_type in ('page_view','product_impression','product_click','add_to_cart','checkout_start','purchase')
+  event_type in ('page_view','product_impression')
   and visitor_id is not null
   and session_id is not null
   and char_length(path) <= 500
