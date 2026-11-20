@@ -26,12 +26,6 @@
 <a class="cat" href="#store" onclick="setFilter('Business')"><span class="emoji">⚡</span><span><strong>أعمال وأدوات</strong><small>إنتاجية وذكاء</small></span></a>
 </div></section>
 <section class="wrap" id="store"><div class="head"><div><h2>المنتجات المعتمدة</h2><p>تظهر هنا المنتجات بعد مراجعتها والموافقة عليها من الإدارة.</p></div><span id="storeCount" class="status">جارٍ التحميل</span></div><div class="toolbar"><input id="search" class="search" placeholder="ابحث عن منتج..." oninput="renderProducts()"><select id="filter" onchange="renderProducts()"><option value="all">كل الأقسام</option><option value="Digital product">منتجات رقمية</option><option value="App">تطبيقات</option><option value="Design">تصاميم</option><option value="Business">أعمال وأدوات</option></select></div><div class="products" id="products"><div class="empty">جارٍ تحميل المنتجات...</div></div></section>
-<section class="wrap hidden" id="checkout">
-<div class="head"><div><h2>إتمام الطلب — شام كاش</h2><p>الدفع اليدوي متاح حالياً، وجميع الطلبات تبقى معلّقة حتى مراجعة الإيصال.</p></div><button class="btn light" type="button" onclick="closeCheckout()">إغلاق</button></div>
-<div class="account">
-<div class="panel"><h3>امسح رمز شام كاش</h3><img src="./assets/shamcash-qr.svg" alt="رمز QR لحساب شام كاش" style="display:block;width:min(100%,330px);margin:10px auto;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff"><p><strong>صاحب الحساب:</strong> محمد علاء رامي رستم</p><p class="muted">السعر في المتجر معروض باليورو. قبل التحويل، تأكد من مبلغ التحويل والعملة المتفق عليها؛ لا تعتمد سعر صرف تقديرياً. لا تعتبر الطلب مدفوعاً قبل تأكيد الإدارة.</p></div>
-<div class="panel"><h3>إرسال إثبات التحويل</h3><p id="checkoutProductName" class="muted"></p><p class="price" id="checkoutProductPrice"></p><form id="paymentForm" class="stack"><input type="hidden" id="checkoutProductId"><input class="field" name="payer_name" placeholder="اسم صاحب حساب شام كاش" required minlength="2" maxlength="100"><input class="field" name="transfer_reference" placeholder="رقم العملية / مرجع التحويل" required minlength="3" maxlength="120"><label class="muted" for="payment_proof">صورة أو PDF لإثبات التحويل (حد أقصى 10 ميغابايت)</label><input class="field" id="payment_proof" name="payment_proof" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" required><button class="btn gold" type="submit">إرسال الطلب للمراجعة</button></form><p class="muted" id="paymentStatus">هذه المرحلة لتسجيل الطلب والتحقق من التحويل فقط؛ التسليم الرقمي الآلي لم يُفعّل بعد.</p></div>
-</div></section>
 <section class="features"><div class="wrap"><div class="head"><div><h2>لماذا WOW MARKET؟</h2><p>شروط واضحة وبداية سهلة للبائعين</p></div></div><div class="featureGrid"><article class="feature"><div class="emoji">🆓</div><h3>تسجيل مجاني</h3><p>لا رسوم تسجيل ولا اشتراك شهري للبائع عند الإطلاق.</p></article><article class="feature"><div class="emoji">🤝</div><h3>عمولة إطلاق 2%</h3><p>عمولة تأسيسية لأول ستة أشهر، ثم 5% وفق الخطة المعتمدة. رسوم بوابة الدفع منفصلة وواضحة.</p></article><article class="feature"><div class="emoji">🛡️</div><h3>مراجعة قبل النشر</h3><p>كل متجر ومنتج يخضع لمراجعة الإدارة لحماية المشترين والبائعين.</p></article></div></div></section>
 <section class="wrap" id="seller"><div class="head"><div><h2>ابدأ البيع على WOW MARKET</h2><p>أنشئ حساباً ثم قدّم طلب فتح متجرك. الموافقة مطلوبة قبل نشر المنتجات.</p></div></div><div class="account">
 <div class="panel"><h3>طلب فتح متجر بائع</h3><form id="sellerForm" class="stack"><input class="field" name="store_name" placeholder="اسم المتجر" required minlength="2" maxlength="80"><input class="field" name="display_name" placeholder="اسمك أو اسم الشركة" required minlength="2" maxlength="80"><input class="field" name="country" placeholder="بلد الإقامة" required minlength="2" maxlength="80" autocomplete="country-name"><textarea class="field" name="description" placeholder="نبذة قصيرة عن متجرك والمنتجات التي ستبيعها" rows="3" maxlength="600"></textarea><button class="btn gold" type="submit">إرسال طلب فتح المتجر</button><p class="muted">يجب تسجيل الدخول أولاً. سيبقى طلبك قيد المراجعة حتى موافقة الإدارة.</p></form><div id="sellerStatus" class="muted"></div></div>
@@ -41,7 +35,7 @@
 <div class="panel" id="authPanel"><h3>دخول أو إنشاء حساب</h3><form id="authForm" class="stack"><input class="field" type="email" name="email" placeholder="البريد الإلكتروني" required><input class="field" type="password" name="password" placeholder="كلمة المرور (8 أحرف على الأقل)" required minlength="8"><div class="rowBtns"><button class="btn" type="submit" data-mode="login">دخول</button><button class="btn gold" type="button" onclick="signup()">إنشاء حساب</button></div></form><p class="muted">قد تحتاج إلى تأكيد بريدك الإلكتروني قبل أول دخول.</p></div>
 <div class="panel"><h3>نظام البائعين</h3><p class="muted">بعد إنشاء الحساب، قدّم طلب فتح متجر. بعد موافقة الإدارة يمكنك إضافة منتجاتك ومتابعة حالتها من هنا.</p><div id="mySeller" class="muted">لم يتم تسجيل الدخول.</div><div id="myProducts" class="muted"></div></div>
 </div></section>
-<section class="wrap hidden" id="admin"><div class="head"><div><h2>لوحة الإدارة</h2><p>مراجعة طلبات البائعين والمنتجات قبل نشرها.</p></div><button class="btn light" onclick="loadAdmin()">تحديث</button></div><div class="account"><div class="panel"><h3>طلبات البائعين</h3><div id="pendingSellers" class="adminList">جارٍ التحميل...</div></div><div class="panel"><h3>المنتجات بانتظار الموافقة</h3><div id="pendingProducts" class="adminList">جارٍ التحميل...</div></div><div class="panel"><h3>طلبات الدفع عبر شام كاش</h3><p class="muted">تأكيد الدفع يحدّث حالة الطلب فقط؛ التسليم الرقمي الآلي مرحلة لاحقة.</p><div id="pendingPayments" class="adminList">جارٍ التحميل...</div></div></div></section>
+<section class="wrap hidden" id="admin"><div class="head"><div><h2>لوحة الإدارة</h2><p>مراجعة طلبات البائعين والمنتجات قبل نشرها.</p></div><button class="btn light" onclick="loadAdmin()">تحديث</button></div><div class="account"><div class="panel"><h3>طلبات البائعين</h3><div id="pendingSellers" class="adminList">جارٍ التحميل...</div></div><div class="panel"><h3>المنتجات بانتظار الموافقة</h3><div id="pendingProducts" class="adminList">جارٍ التحميل...</div></div></div></section>
 <section class="wrap"><div class="cta"><div><h2>هل أنت صاحب منتج رقمي؟</h2><p>انضم إلى سوق عالمي، وابدأ بعرض منتجاتك بعد اعتماد متجرك.</p></div><a class="primary" href="#seller">افتح متجرك مجاناً</a></div></section>
 </main>
 <footer class="footer"><div class="footerIn"><div><a class="brand" href="#home" style="color:white">WOW <b>MARKET</b></a><p>سوقك الرقمي العالمي.</p></div><div><strong>روابط سريعة</strong><p><a href="#categories">الأقسام</a> · <a href="#store">المتجر</a> · <a href="#seller">بع منتجاتك</a></p></div><small>© <span id="year"></span> WOW MARKET — جميع الحقوق محفوظة</small></div></footer>
@@ -57,43 +51,12 @@ function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block'
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function categoryName(v){return ({'Digital product':'منتج رقمي','App':'تطبيق','Design':'تصميم وقالب','Business':'أعمال وأدوات'})[v]||v}
 async function loadProducts(){const {data,error}=await db.from('products').select('id,title,category,description,price,image_url,created_at').eq('status','approved').order('created_at',{ascending:false});if(error){$('products').innerHTML='<div class="empty">تعذر تحميل المنتجات حالياً. يرجى المحاولة لاحقاً.</div>';$('storeCount').textContent='غير متاح';return}products=data||[];$('storeCount').textContent=products.length+' منتج';renderProducts()}
-function renderProducts(){const q=$('search').value.trim().toLowerCase(),f=$('filter').value;const list=products.filter(p=>(f==='all'||p.category===f)&&((p.title+' '+p.description).toLowerCase().includes(q)));$('products').innerHTML=list.length?list.map(p=>'<article class="product"><div class="art">'+(p.image_url?'<img src="'+esc(p.image_url)+'" alt="" style="width:100%;height:100%;object-fit:cover">':'✦')+'</div><div class="pbody"><span class="tag">'+esc(categoryName(p.category))+'</span><h3>'+esc(p.title)+'</h3><p>'+esc(p.description)+'</p><div class="pfoot"><span class="price">'+Number(p.price).toFixed(2)+' €</span>'<button class="btn gold" onclick="startCheckout(&quot;'+p.id+'&quot;)">اشترِ الآن</button>'</div></div></article>').join(''):'<div class="empty">لا توجد منتجات معتمدة حالياً. كن أول من يضيف منتجه بعد فتح متجره.</div>'}
+function renderProducts(){
+ const q=$('search').value.trim().toLowerCase(),f=$('filter').value;
+ const list=products.filter(p=>(f==='all'||p.category===f)&&((p.title+' '+p.description).toLowerCase().includes(q)));
+ $('products').innerHTML=list.length?list.map(p=>'<article class="product"><div class="art">'+(p.image_url?'<img src="'+esc(p.image_url)+'" alt="" style="width:100%;height:100%;object-fit:cover">':'✦')+'</div><div class="pbody"><span class="tag">'+esc(categoryName(p.category))+'</span><h3>'+esc(p.title)+'</h3><p>'+esc(p.description)+'</p><div class="pfoot"><span class="price">'+Number(p.price).toFixed(2)+' €</span><button class="btn" disabled title="سيتم تفعيل الشراء بعد تجهيز الدفع والتسليم">قريباً للشراء</button></div></div></article>').join(''):'<div class="empty">لا توجد منتجات معتمدة حالياً. كن أول من يضيف منتجه بعد فتح متجره.</div>';
+}
 
-async function startCheckout(id){
- if(!currentUser){toast('سجّل الدخول أولاً لإتمام الشراء');$('account').classList.remove('hidden');$('account').scrollIntoView({behavior:'smooth'});return}
- const {data,error}=await db.from('products').select('id,title,price').eq('id',id).eq('status','approved').single();
- if(error||!data){toast('هذا المنتج لم يعد متاحاً');return}
- $('checkoutProductId').value=data.id;$('checkoutProductName').textContent=data.title;$('checkoutProductPrice').textContent=Number(data.price).toFixed(2)+' €';
- $('checkout').classList.remove('hidden');$('checkout').scrollIntoView({behavior:'smooth'});
-}
-function closeCheckout(){$('checkout').classList.add('hidden')}
-async function renderAdminPayments(rows){
- if(!rows.length){$('pendingPayments').innerHTML='<p class="muted">لا توجد طلبات دفع معلّقة.</p>';return}
- const cards=await Promise.all(rows.map(async x=>{
-  const {data}=await db.storage.from('wow-payment-proofs').createSignedUrl(x.proof_path,300);
-  return '<div class="adminRow"><div><strong>'+esc(x.product_title)+'</strong><div class="muted">'+esc(x.payer_name)+' · '+esc(x.transfer_reference)+' · '+Number(x.amount).toFixed(2)+' '+esc(x.currency)+'</div><div class="muted">'+new Date(x.created_at).toLocaleString('ar')+'</div>'+(data?.signedUrl?'<a href="'+esc(data.signedUrl)+'" target="_blank" rel="noopener">عرض إثبات التحويل</a>':'<span class="muted">تعذر فتح الإثبات</span>')+'</div><div class="rowBtns"><button class="btn gold" onclick="reviewPaymentOrder(&quot;'+x.id+'&quot;,&quot;paid&quot;)">تأكيد الدفع</button><button class="btn danger" onclick="reviewPaymentOrder(&quot;'+x.id+'&quot;,&quot;rejected&quot;)">رفض</button></div></div>';
- }));
- $('pendingPayments').innerHTML=cards.join('');
-}
-async function reviewPaymentOrder(id,status){
- const {error}=await db.from('payment_orders').update({status,reviewed_at:new Date().toISOString(),reviewed_by:currentUser.id}).eq('id',id);
- if(error){toast(error.message);return}toast(status==='paid'?'تم تأكيد الدفع':'تم رفض إثبات الدفع');await loadAdmin();
-}
-$('paymentForm').addEventListener('submit',async e=>{
- e.preventDefault();if(!currentUser){toast('سجّل الدخول أولاً');return}
- const fd=new FormData(e.currentTarget),file=fd.get('payment_proof');
- if(!file||!file.size){toast('أرفق إثبات التحويل أولاً');return}
- if(file.size>10485760){toast('حجم الإثبات يتجاوز 10 ميغابايت');return}
- const allowed=['image/jpeg','image/png','image/webp','application/pdf'];if(!allowed.includes(file.type)){toast('الملف غير مدعوم. استخدم صورة أو PDF');return}
- const ext=file.type==='application/pdf'?'pdf':file.type==='image/png'?'png':file.type==='image/webp'?'webp':'jpg';
- const path=currentUser.id+'/'+crypto.randomUUID()+'.'+ext;
- try{
-  const {error:upErr}=await db.storage.from('wow-payment-proofs').upload(path,file,{upsert:false,contentType:file.type});if(upErr)throw upErr;
-  const {error:orderErr}=await db.from('payment_orders').insert({buyer_id:currentUser.id,product_id:$('checkoutProductId').value,payer_name:fd.get('payer_name'),transfer_reference:fd.get('transfer_reference'),proof_path:path});
-  if(orderErr){await db.storage.from('wow-payment-proofs').remove([path]);throw orderErr}
-  e.currentTarget.reset();closeCheckout();toast('وصل طلبك بنجاح. الدفع قيد المراجعة، وسيبقى التسليم الرقمي الآلي معطلاً حتى اكتمال نظام التسليم الآمن.');
- }catch(err){toast(err.message||'تعذر إرسال إثبات الدفع')}
-});
 function setFilter(v){$('filter').value=v;renderProducts()}
 async function refreshSession(){const {data}=await db.auth.getSession();currentUser=data.session?.user||null;await refreshAccount()}
 async function refreshAccount(){if(!currentUser){$('sessionLabel').textContent='سجّل الدخول لإدارة متجرك وطلباتك.';$('authPanel').classList.remove('hidden');$('logoutBtn').classList.add('hidden');$('mySeller').textContent='لم يتم تسجيل الدخول.';$('myProducts').textContent='';$('admin').classList.add('hidden');return}
@@ -115,14 +78,12 @@ $('productForm').addEventListener('submit',async e=>{e.preventDefault();if(!curr
 
 async function loadAdmin(){
  if(!isAdmin)return;
- const [s,p,o]=await Promise.all([
+ const [s,p]=await Promise.all([
   db.from('seller_profiles').select('user_id,store_name,display_name,country,created_at').eq('status','pending').order('created_at'),
-  db.from('products').select('id,title,category,price,seller_id').eq('status','pending').order('created_at'),
-  db.from('payment_orders').select('id,product_title,amount,currency,payer_name,transfer_reference,proof_path,created_at').eq('status','pending').order('created_at')
+  db.from('products').select('id,title,category,price,seller_id').eq('status','pending').order('created_at')
  ]);
  $('pendingSellers').innerHTML=s.error?'<p class="muted">تعذر تحميل الطلبات</p>':(s.data?.length?s.data.map(x=>'<div class="adminRow"><div><strong>'+esc(x.store_name)+'</strong><div class="muted">'+esc(x.display_name)+' · '+esc(x.country)+'</div></div><div class="rowBtns"><button class="btn gold" onclick="reviewSeller(&quot;'+x.user_id+'&quot;,&quot;approved&quot;)">موافقة</button><button class="btn danger" onclick="reviewSeller(&quot;'+x.user_id+'&quot;,&quot;rejected&quot;)">رفض</button></div></div>').join(''):'<p class="muted">لا توجد طلبات معلّقة.</p>');
  $('pendingProducts').innerHTML=p.error?'<p class="muted">تعذر تحميل المنتجات</p>':(p.data?.length?p.data.map(x=>'<div class="adminRow"><div><strong>'+esc(x.title)+'</strong><div class="muted">'+esc(categoryName(x.category))+' · '+Number(x.price).toFixed(2)+' €</div></div><div class="rowBtns"><button class="btn gold" onclick="reviewProduct(&quot;'+x.id+'&quot;,&quot;approved&quot;)">نشر</button><button class="btn danger" onclick="reviewProduct(&quot;'+x.id+'&quot;,&quot;rejected&quot;)">رفض</button></div></div>').join(''):'<p class="muted">لا توجد منتجات معلّقة.</p>');
- await renderAdminPayments(o.error?[]:(o.data||[]));
 }
 async function reviewSeller(id,status){const {error}=await db.from('seller_profiles').update({status,reviewed_at:new Date().toISOString(),reviewed_by:currentUser.id}).eq('user_id',id);if(error){toast(error.message);return}toast('تم تحديث حالة طلب البائع');await loadAdmin()}
 async function reviewProduct(id,status){const {error}=await db.from('products').update({status}).eq('id',id);if(error){toast(error.message);return}toast('تم تحديث حالة المنتج');await loadAdmin();await loadProducts()}
