@@ -31,7 +31,48 @@
 <script>
 function showTab(id,btn){document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
 let toastTimer;function toast(s){const t=document.getElementById('toast');t.textContent=s;t.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.style.display='none',3200)}
-const en={"منتج تقني من منظومة WOW MARKET · بوابة API موحدة للمطورين والشركات":"A WOW MARKET product · A unified API gateway for developers and businesses","الخدمات":"Services","لوحة التحكم":"Dashboard","الباقات":"Plans","للمطورين":"Developers","مفتاح واحد.":"One key.","عالم من الذكاء الاصطناعي.":"A world of AI.","مزودو الخدمات":"AI providers","لوحة تحكم العميل":"Customer console"};
-function setLang(l){document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';document.getElementById('lang').value=l;document.querySelectorAll('[data-ar]').forEach(e=>e.textContent=l==='ar'?e.dataset.ar:e.dataset.en)}
+const dict={
+"منتج تقني من منظومة WOW MARKET · بوابة API موحدة للمطورين والشركات":"A WOW MARKET product · Unified API gateway for developers and businesses",
+"الخدمات":"Services","لوحة التحكم":"Dashboard","الباقات":"Plans","للمطورين":"Developers","مفتاح واحد.":"One key.","عالم من الذكاء الاصطناعي.":"A world of AI.",
+"مفتاح واحد للوصول إلى خدمات الذكاء الاصطناعي عبر بوابة API موحدة.":"One key to access AI services through a unified API gateway.",
+"مفتاح واحد.":"One key.","عالم من الذكاء الاصطناعي.":"A world of AI.","بوابة موحدة لإدارة الوصول إلى مزودي الذكاء الاصطناعي من خلال مفتاح API خاص بك، مع مراقبة الاستخدام والتحكم بالتكاليف من مكان واحد.":"A unified gateway to AI providers through your own API key, with usage monitoring and cost controls in one place.",
+"استكشف لوحة التحكم":"Explore dashboard","وثائق المطورين":"Developer docs","مفتاح موحد":"Unified key","عدة":"Multiple","مزودين":"providers","مراقبة الاستخدام":"Usage monitoring",
+"مزودو الخدمات":"Service providers","سنربط المزودين عبر واجهاتهم الرسمية، وتفعيل كل مزود بعد إعداد بيانات اعتماده.":"Providers will be connected through their official APIs after credentials are configured.",
+"نماذج المحادثة وتوليد النصوص والمهام الذكية عبر واجهة API الرسمية.":"Chat models, text generation and intelligent tasks through the official API.",
+"الوصول إلى خدمات ونماذج Google AI من خلال تكامل رسمي.":"Access Google AI services and models through an official integration.",
+"تكامل نماذج Claude وخدماتها وفق شروط المزود.":"Claude models integration, subject to provider terms.",
+"بانتظار ربط الاعتماد":"Awaiting provider setup","لوحة تحكم العميل":"Customer dashboard","تصور أولي للوحة الاستخدام وإدارة المفاتيح.":"Initial concept for usage and key management.",
+"نظرة عامة":"Overview","مفاتيح API":"API keys","الاستهلاك":"Usage","الفوترة والباقات":"Billing & plans","الإعدادات":"Settings",
+"تنبيه: هذه واجهة تأسيسية للعرض والتصميم. إنشاء المفاتيح الحقيقية، تمرير الطلبات، احتساب الرصيد والدفع لن تعمل قبل إعداد الخادم الآمن وربط مزودي الخدمة.":"Notice: This is an initial UI prototype. Real key issuance, request routing, balance tracking and payments require a secure backend and provider integrations.",
+"طلبات API":"API requests","الرصيد":"Balance","المفاتيح النشطة":"Active keys","حالة المنصة":"Platform status",
+"الواجهة جاهزة كبداية. لم يتم ربط أي مزود حي أو تخزين مفاتيح اعتماد في المتصفح.":"The interface is ready as a starting point. No live provider is connected and no provider secrets are stored in the browser.",
+"المفتاح الذي سيحصل عليه العميل يجب أن يصدر من الخادم ويُحفظ بشكل آمن. لن ننشئ مفاتيح وهمية تبدو حقيقية.":"Customer keys must be issued and stored securely by the backend. We will not generate fake keys that look real.",
+"مفاتيح API الخاصة بك":"Your API keys","بعد تشغيل الخادم ستتمكن من إنشاء مفتاح، تحديد صلاحياته، تدويره أو إلغائه.":"After the backend is live, you can create keys, set permissions, rotate or revoke them.",
+"+ إنشاء مفتاح جديد":"+ Create new key","سيتم تفعيل إنشاء المفاتيح بعد ربط الخادم الآمن.":"Key creation will be enabled after the secure backend is connected.",
+"الاستهلاك والتكاليف":"Usage & costs","سيظهر هنا عدد الطلبات، الرموز المستخدمة، المزود، النموذج والتكلفة الفعلية بعد ربط سجلات الاستخدام.":"Requests, tokens, provider, model and actual costs will appear here once usage logging is connected.",
+"الفوترة والباقات":"Billing & plans","سيتم ربط الاشتراكات والمدفوعات بعد اختيار بوابة دفع مدعومة وإعداد الضرائب والفواتير حسب بلد النشاط.":"Subscriptions and payments will be connected after selecting a supported payment gateway and configuring taxes and invoices.",
+"إعدادات الحساب":"Account settings","سيتم إضافة تسجيل الدخول، التحقق من البريد، أدوار المستخدمين وإعدادات الأمان في مرحلة الخادم.":"Login, email verification, user roles and security settings will be added in the backend phase.",
+"باقات الاشتراك المقترحة":"Proposed subscription plans","أسعار أولية للنقاش وليست عروضاً مفعّلة أو مدفوعات متاحة حالياً.":"Initial prices for discussion only; these are not active offers or available payments.",
+"للتجربة والتطوير الشخصي":"For testing and personal development","حد استخدام تجريبي":"Limited trial usage","مفتاح API واحد":"One API key","لوحة استهلاك أساسية":"Basic usage dashboard","سيتم تفعيل التسجيل بعد إعداد نظام الحسابات.":"Sign-up will be enabled after the account system is configured.",
+"الخيار المقترح":"Suggested plan","للمطورين والمشاريع الناشئة":"For developers and startups","شهرياً — مقترح":"/ month — proposed","حدود استخدام أعلى":"Higher usage limits","مفاتيح متعددة وصلاحيات":"Multiple keys and permissions","تقارير استخدام وتكاليف":"Usage and cost reports","الاشتراكات ستتاح بعد ربط الفوترة ومزودي الخدمة.":"Subscriptions will be available after billing and provider integrations.",
+"للشركات والفرق":"For companies and teams","حسب الاستخدام":"Pay as you go","إدارة فرق ومستخدمين":"Team and user management","حدود مخصصة ومراقبة":"Custom limits and monitoring","دعم واتفاقيات خاصة":"Dedicated support and agreements","سيتم فتح طلبات الشركات في مرحلة الإطلاق.":"Business inquiries will open at launch.",
+"مصمم للمطورين":"Built for developers","واجهة موحدة مع توافق برمجي واضح وتوثيق قابل للتوسع.":"A unified interface with clear compatibility and extensible documentation.",
+"مثال طلب API — شكل توضيحي":"API request example — illustrative","المسار التالي مثال تصميمي؛ لا يوجد endpoint منشور أو مفتاح فعلي حتى الآن.":"The following is illustrative; no endpoint or live key is published yet.",
+"منتج ضمن منظومة WOW MARKET · جميع الحقوق محفوظة":"A product within WOW MARKET · All rights reserved"
+};
+const originals=new WeakMap();
+function setLang(l){
+ if(!['ar','en'].includes(l))l='ar';
+ document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
+ document.getElementById('lang').value=l;
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;
+ while(n=walker.nextNode()){
+  if(!originals.has(n))originals.set(n,n.nodeValue);
+  const original=originals.get(n);const trimmed=original.trim();
+  if(l==='ar')n.nodeValue=original;
+  else if(dict[trimmed]){const lead=original.match(/^\\s*/)?.[0]||'';const tail=original.match(/\\s*$/)?.[0]||'';n.nodeValue=lead+dict[trimmed]+tail;}
+ }
+ document.title=l==='ar'?'ChatKEY — بوابة الذكاء الاصطناعي الموحدة':'ChatKEY — Unified AI API Gateway';
+}
 </script>
 </body></html>
